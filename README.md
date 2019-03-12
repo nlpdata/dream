@@ -22,6 +22,7 @@ Files in this repository:
 * ```data``` folder: the dataset.
 * ```dsw++``` folder: code of DSW++.
 * ```ftlm++``` folder: code of FTLM++.
+* ```annotation``` folder: question type annotations.
 * ```license.txt```: the license of DREAM.
 * ```websites.txt```: list of websites used for the data collection of DREAM.
 
@@ -92,6 +93,23 @@ Dataset
   ...
 ]
 ```
+
+Question Type Annotations
+-------------------------
+
+```annotation/{annotator1,annotator2}_{dev,test}.json``` are the question type annotations for 25% questions in the development and test sets from two annotators.
+
+In accordance with the format explanation above, the question index starts from ```1```.
+
+We adopt the following abbreviations:
+
+| Abbreviation | Question Type | 
+| ------------ | ------------- |
+| m            | matching      |
+| s            | summary       |
+| l            | logic         |
+| a            | arithmetic    |
+| c            | commonsense   |
 
 Code
 ----
