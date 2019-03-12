@@ -20,9 +20,9 @@ This repository maintains **DREAM**, a multiple-choice **D**ialogue-based **REA*
 Files in this repository:
 
 * ```data``` folder: the dataset.
+* ```annotation``` folder: question type annotations.
 * ```dsw++``` folder: code of DSW++.
 * ```ftlm++``` folder: code of FTLM++.
-* ```annotation``` folder: question type annotations.
 * ```license.txt```: the license of DREAM.
 * ```websites.txt```: list of websites used for the data collection of DREAM.
 
