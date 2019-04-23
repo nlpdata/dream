@@ -133,6 +133,6 @@ Code
 
 **Environment**: The code has been tested with Python 3.6/3.7 and Tensorflow 1.4
 
-Useful Code
------------
+Other Useful Code
+-----------------
 You can refer to [this repository](https://github.com/nlpdata/mrc_bert_baseline) for a finetuned transformer baseline based on BERT.
