@@ -23,6 +23,7 @@ Files in this repository:
 * ```annotation``` folder: question type annotations.
 * ```dsw++``` folder: code of DSW++.
 * ```ftlm++``` folder: code of FTLM++.
+* ```bert``` folder: code of a finetuned transformer baseline based on BERT.
 * ```license.txt```: the license of DREAM.
 * ```websites.txt```: list of websites used for the data collection of DREAM.
 
@@ -111,8 +112,8 @@ We adopt the following abbreviations:
 | a            | arithmetic    |
 | c            | commonsense   |
 
-Code
-----
+Code of the Paper
+-----------------
 
 * DSW++
 
@@ -123,17 +124,25 @@ Code
 
 * FTLM++
 
-  1. Download pre-trained language model from https://github.com/openai/finetune-transformer-lm, and copy the model folder ```model``` to ```ftlm++/```.
+  1. Download the pre-trained language model from https://github.com/openai/finetune-transformer-lm, and copy the model folder ```model``` to ```ftlm++/```.
   2. Copy the data folder ```data``` to ```ftlm++/```.
   3. In ```ftlm++```, execute ```python train.py --submit```. You may want to also specify ```--n_gpu``` (e.g., 4) and ```--n_batch``` (e.g., 2) based on your environment.
   4. Execute ```python evaluate.py``` to get the accuracy on the test set.
 
-**Note**: the results you get may be slightly different from those reported in the paper. For example, the dev and test accuracy for DSW++ in this repository is 51.2 and 50.2 respectively, while the reported accuracy in the paper is 51.4 and 50.1. That is due to (1) we refactor the code with different dependencies to make it portable, and (2) some of the code is non-deterministic due to GPU non-determinism.
 
-Environment
------------
-The code has been tested with Python 3.6/3.7 and Tensorflow 1.4
+**Note**: The results you get may be slightly different from those reported in the paper. For example, the dev and test accuracy for DSW++ in this repository is 51.2 and 50.2 respectively, while the reported accuracy in the paper is 51.4 and 50.1. That is due to (1) we refactor the code with different dependencies to make it portable, and (2) some of the code is non-deterministic due to GPU non-determinism.
 
-TODO
-----
-* Release a finetuned transformer baseline based on BERT for DREAM. (March/April)
+**Environment**: The code has been tested with Python 3.6/3.7 and Tensorflow 1.4
+
+Additional Code
+---------------
+
+* BERT baseline
+
+  1. Download and unzip the pre-trained language model from https://github.com/google-research/bert. and set up the environment variable for BERT by ```export BERT_BASE_DIR=/PATH/TO/BERT/DIR```.
+  2. Copy the data folder ```data``` to ```ftlm++/```.
+  3. In ```bert```, execute ```python convert_tf_checkpoint_to_pytorch.py   --tf_checkpoint_path=$BERT_BASE_DIR/bert_model.ckpt   --bert_config_file=$BERT_BASE_DIR/bert_config.json   --pytorch_dump_path=$BERT_BASE_DIR/pytorch_model.bin```
+  4. Execute ```python run_classifier.py   --task_name dream  --do_train --do_eval   --data_dir .   --vocab_file $BERT_BASE_DIR/vocab.txt   --bert_config_file $BERT_BASE_DIR/bert_config.json   --init_checkpoint $BERT_BASE_DIR/pytorch_model.bin   --max_seq_length 512   --train_batch_size 24   --learning_rate 2e-5   --num_train_epochs 8.0   --output_dir dream_finetuned  --gradient_accumulation_steps 3```
+  5. The resulting fine-tuned model, predictions, and evaluation results are stored in ```bert/dream_finetuned```.
+
+**Environment**: The code has been tested with Python 3.6 and PyTorch 1.0
